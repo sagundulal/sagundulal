@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Gallery with Zoom</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 80%;
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+    .close, .zoom-controls {
+      position: absolute;
+      color: white;
+      font-size: 24px;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .close { top: 20px; right: 30px; }
+    .zoom-controls { bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>My Photo Gallery</h1>
+  <div class="gallery">
+    <!-- 18 sample images -->
+    <img src="./images\picccc\photo-1544735716-87fa59a45b4e.avif" alt="Gallery Image 1">
+    <img src="./images\picccc\photo-1531719555052-632b0348c404.avif" alt="Gallery Image 2">
+    <img src="./images\picccc\photo-1589371433961-b7a6c034c7a0.avif" alt="Gallery Image 3">
+    <img src="./images\picccc\photo-1624850667095-c560d39559a1.avif" alt="Gallery Image 4">
+    <img src="./images\picccc\photo-1580424917967-a8867a6e676e.avif" alt="Gallery Image 5">
+    <img src="./images\picccc\photo-1725465268107-5af45fcfef69.avif" alt="Gallery Image 6">
+    <img src="./images\picccc\photo-1589800463007-3be49fe18b92.avif" alt="Gallery Image 7">
+     <img src="./images\picccc\photo-1597228887398-6aa9bcadf134.avif" alt="Gallery Image 8">
+    <img src="./images\picccc\photo-1725466687771-d2fde97bed7e.avif" alt="Gallery Image 9">
+    <img src="./images\picccc\photo-1728146083663-beaaa1ebea08.avif" alt="Gallery Image 10">
+    <img src="./images\picccc\photo-1572536260889-47c5daef613e.avif" alt="Gallery Image 11">
+    <img src="./images\picccc\photo-1516684991026-4c3032a2b4fd.avif" alt="Gallery Image 12">
+    <img src="./images\picccc\photo-1599025740244-39e44a8728f4.avif" alt="Gallery Image 13">
+    <img src="./images\picccc\photo-1727947248592-77b80a8d3a3a.avif" alt="Gallery Image 15">
+    <img src="./images\picccc\photo-1623492701360-fb4a1205c789.avif" alt="Gallery Image 16">
+    <img src="./images\picccc\photo-1552353338-0944fa7abdcd.avif" alt="Gallery Image 17">
+    
+
+    
+  </div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">×</span>
+    <img id="modalImage" src="">
+    <div class="zoom-controls">
+      <button onclick="zoomIn()">➕ Zoom In</button>
+      <button onclick="zoomOut()">➖ Zoom Out</button>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('myModal');
+    const modalImg = document.getElementById('modalImage');
+    let scale = 1;
+
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.addEventListener('click', () => {
+        modal.style.display = 'flex';
+        modalImg.src = img.src;
+        scale = 1;
+        modalImg.style.transform = `scale(${scale})`;
+      });
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    function zoomIn() {
+      scale += 0.2;
+      modalImg.style.transform = `scale(${scale})`;
+    }
+
+    function zoomOut() {
+      scale = Math.max(0.2, scale - 0.2);
+      modalImg.style.transform = `scale(${scale})`;
+    }
+  </script>
+
+</body>
+</html>
